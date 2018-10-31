@@ -1,8 +1,7 @@
 require 'sinatra/base'
-require './lib/bookmark'
+require_relative './lib/bookmark'
 
 class BookmarkManager < Sinatra::Base
-
   get '/' do
     'Bookmark Manager'
   end
@@ -16,15 +15,10 @@ class BookmarkManager < Sinatra::Base
     erb :"bookmarks/new"
   end
 
-post '/bookmarks/new' do
-  Bookmark.create(url: params[:url], title: params[:title])
-  redirect '/bookmarks'
-end
-
-post '/bookmarks' do
-  Bookmark.create(url: params['url'])
-  redirect '/bookmarks'
-end
+  post '/bookmarks' do
+    Bookmark.create(url: params[:url])
+    redirect '/bookmarks'
+  end
 
   run! if app_file == $0
 end
